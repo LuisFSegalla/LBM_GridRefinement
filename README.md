@@ -4,6 +4,9 @@ Neste repositório você encontrará os arquivos para rodar a simulação e os a
 Ambos estão sendo constantemente mudados.
 
 Códigos feitos usando:
+
 Ubuntu 18.04.3 LTS
+
 gcc 7.4.0
+
 Python 3.6.9
