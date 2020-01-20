@@ -8,4 +8,4 @@ limpa:
 	rm -f *.o
 
 limpaTudo:
-	rm -f *.0 *.txt
+	rm -f *.0 *.txt results/*.txt

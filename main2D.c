@@ -249,6 +249,68 @@ void condContornoBordas(Celula **funcDistribuicao_c, Celula **funcEquilibrio_c, 
     funcDistribuicao_f[0][0].f[8] = rho*ux + funcDistribuicao_f[0][0].f[6] + funcDistribuicao_f[0][0].f[7] + funcDistribuicao_f[0][0].f[3] - funcDistribuicao_f[0][0].f[1] - funcDistribuicao_f[0][0].f[5];
 }
 
+void condContornoBordas_coarse(Celula **funcDistribuicao_c, Celula **funcEquilibrio_c, int tamX_c, int tamY_c)
+{
+    double rho = 0.0;
+    double ux  = 0.0;
+    //superior esquerdo
+    rho = funcDistribuicao_c[0][tamY_c-1].rho;
+    ux  = funcDistribuicao_c[0][tamY_c-1].ux;
+    funcDistribuicao_c[0][tamY_c-1].f[1] = funcDistribuicao_c[0][tamY_c-1].f[3] + (funcEquilibrio_c[0][tamY_c-1].f[1] - funcEquilibrio_c[0][tamY_c-1].f[3]);
+    funcDistribuicao_c[0][tamY_c-1].f[4] = funcDistribuicao_c[0][tamY_c-1].f[2] + (funcEquilibrio_c[0][tamY_c-1].f[4] - funcEquilibrio_c[0][tamY_c-1].f[2]);
+    funcDistribuicao_c[0][tamY_c-1].f[8] = funcDistribuicao_c[0][tamY_c-1].f[6] + (funcEquilibrio_c[0][tamY_c-1].f[8] - funcEquilibrio_c[0][tamY_c-1].f[6]);
+    funcDistribuicao_c[0][tamY_c-1].f[7] = 0.5*(rho - rho*ux - 2*funcDistribuicao_c[0][tamY_c-1].f[6] - 2*funcDistribuicao_c[0][tamY_c-1].f[3] - funcDistribuicao_c[0][tamY_c-1].f[0] - funcDistribuicao_c[0][tamY_c-1].f[2] - funcDistribuicao_c[0][tamY_c-1].f[4]);
+    funcDistribuicao_c[0][tamY_c-1].f[5] = rho*ux + funcDistribuicao_c[0][tamY_c-1].f[7] + funcDistribuicao_c[0][tamY_c-1].f[6] + funcDistribuicao_c[0][tamY_c-1].f[3] - funcDistribuicao_c[0][tamY_c-1].f[8] - funcDistribuicao_c[0][tamY_c-1].f[1];
+
+    //superior direito
+    rho = funcDistribuicao_c[tamX_c-1][tamY_c-1].rho;
+    ux  = funcDistribuicao_c[tamX_c-1][tamY_c-1].ux;
+    funcDistribuicao_c[tamX_c-1][tamY_c-1].f[3] = funcDistribuicao_c[tamX_c-1][tamY_c-1].f[1] + (funcEquilibrio_c[tamX_c-1][tamY_c-1].f[3] -funcEquilibrio_c[tamX_c-1][tamY_c-1].f[1]);
+    funcDistribuicao_c[tamX_c-1][tamY_c-1].f[4] = funcDistribuicao_c[tamX_c-1][tamY_c-1].f[2] + (funcEquilibrio_c[tamX_c-1][tamY_c-1].f[4] -funcEquilibrio_c[tamX_c-1][tamY_c-1].f[2]);
+    funcDistribuicao_c[tamX_c-1][tamY_c-1].f[7] = funcDistribuicao_c[tamX_c-1][tamY_c-1].f[5] + (funcEquilibrio_c[tamX_c-1][tamY_c-1].f[7] -funcEquilibrio_c[tamX_c-1][tamY_c-1].f[5]);
+    funcDistribuicao_c[tamX_c-1][tamY_c-1].f[6] = 0.5*(rho - rho*ux - funcDistribuicao_c[tamX_c-1][tamY_c-1].f[0] - funcDistribuicao_c[tamX_c-1][tamY_c-1].f[2] - funcDistribuicao_c[tamX_c-1][tamY_c-1].f[4] - 2*funcDistribuicao_c[tamX_c-1][tamY_c-1].f[3] - 2*funcDistribuicao_c[tamX_c-1][tamY_c-1].f[7]);
+    funcDistribuicao_c[tamX_c-1][tamY_c-1].f[8] = rho*ux + funcDistribuicao_c[tamX_c-1][tamY_c-1].f[6] + funcDistribuicao_c[tamX_c-1][tamY_c-1].f[7] + funcDistribuicao_c[tamX_c-1][tamY_c-1].f[3] - funcDistribuicao_c[tamX_c-1][tamY_c-1].f[1] - funcDistribuicao_c[tamX_c-1][tamY_c-1].f[5];
+}
+
+void condContornoBordas_fine(Celula **funcDistribuicao_f, Celula **funcEquilibrio_f, int tamX_f, int tamY_f)
+{
+    double rho = 0.0;
+    double ux  = 0.0;
+
+    //infeior direito
+    rho = funcDistribuicao_f[tamX_f-1][0].rho;
+    ux  = funcDistribuicao_f[tamX_f-1][0].ux;
+    funcDistribuicao_f[tamX_f-1][0].f[3] = funcDistribuicao_f[tamX_f-1][0].f[1] + (funcEquilibrio_f[tamX_f-1][0].f[3] - funcEquilibrio_f[tamX_f-1][0].f[1]);
+    funcDistribuicao_f[tamX_f-1][0].f[2] = funcDistribuicao_f[tamX_f-1][0].f[4] + (funcEquilibrio_f[tamX_f-1][0].f[2] - funcEquilibrio_f[tamX_f-1][0].f[4]);
+    funcDistribuicao_f[tamX_f-1][0].f[6] = funcDistribuicao_f[tamX_f-1][0].f[8] + (funcEquilibrio_f[tamX_f-1][0].f[6] - funcEquilibrio_f[tamX_f-1][0].f[8]);
+    funcDistribuicao_f[tamX_f-1][0].f[7] = 0.5*(rho - rho*ux - 2*funcDistribuicao_f[tamX_f-1][0].f[6] - 2*funcDistribuicao_f[tamX_f-1][0].f[3] - funcDistribuicao_f[tamX_f-1][0].f[0] - funcDistribuicao_f[tamX_f-1][0].f[2] - funcDistribuicao_f[tamX_f-1][0].f[4]);
+    funcDistribuicao_f[tamX_f-1][0].f[5] = rho*ux + funcDistribuicao_f[tamX_f-1][0].f[7] + funcDistribuicao_f[tamX_f-1][0].f[6] + funcDistribuicao_f[tamX_f-1][0].f[3] - funcDistribuicao_f[tamX_f-1][0].f[8] - funcDistribuicao_f[tamX_f-1][0].f[1];
+
+    //inferior esquerdo
+    rho = funcDistribuicao_f[0][0].rho;
+    ux  = funcDistribuicao_f[0][0].ux;
+    funcDistribuicao_f[0][0].f[2] = funcDistribuicao_f[0][0].f[4] + (funcDistribuicao_f[0][0].f[2] - funcDistribuicao_f[0][0].f[4]);
+    funcDistribuicao_f[0][0].f[1] = funcDistribuicao_f[0][0].f[3] + (funcDistribuicao_f[0][0].f[1] - funcDistribuicao_f[0][0].f[3]);
+    funcDistribuicao_f[0][0].f[5] = funcDistribuicao_f[0][0].f[7] + (funcDistribuicao_f[0][0].f[5] - funcDistribuicao_f[0][0].f[7]);
+    funcDistribuicao_f[0][0].f[6] = 0.5*(rho - rho*ux - funcDistribuicao_f[0][0].f[0] - funcDistribuicao_f[0][0].f[2] - funcDistribuicao_f[0][0].f[4] - 2*funcDistribuicao_f[0][0].f[3] - 2*funcDistribuicao_f[0][0].f[7]);
+    funcDistribuicao_f[0][0].f[8] = rho*ux + funcDistribuicao_f[0][0].f[6] + funcDistribuicao_f[0][0].f[7] + funcDistribuicao_f[0][0].f[3] - funcDistribuicao_f[0][0].f[1] - funcDistribuicao_f[0][0].f[5];
+}
+
+int confere(Celula **funcDistribuicao, int tamX, int tamY)
+{
+  for(int i = 0; i < tamX; i++)
+  {
+    for(int j = 0; j < tamY; j++)
+    {
+      if(funcDistribuicao[i][j].rho >= 1000 || funcDistribuicao[i][j].rho <= -1)
+      {
+        return 1;
+      }
+    }
+  }
+  return 0;
+}
+
 int main()
 {
     //pesos
@@ -276,10 +338,13 @@ int main()
 
     //tempo de relaxação
     double tau_c =  1/omega;
-    double tau_f = tau_c*(razaoDeDivisao + 0.5) + 0.5;//no artigo falta um parenteses no denominador
-    printf("tau_c: %f\ntau_f: %f\n",tau_c,tau_f);
+    double tau_f = 2*tau_c - 0.5;//correto, refiz a conta
 
-    int numSteps = 1000;
+    printf("tau_c: %f\ntau_f: %f\n",tau_c,tau_f);
+    printf("tau_f / tau_c: %f\n", tau_f / tau_c);
+
+    //numero de passos
+    int numSteps = 10000;
 
     //caracteristicas do fluido
     double ux0   = 0.002;
@@ -361,13 +426,26 @@ int main()
         //passo 4
         for(int i = 0; i < (razaoDeDivisao)-1; i++)
         {
+          //Adicionei essa rotina no dia 19 de janeiro como uma maneira de testar se haveria melhoria no resultado final do algoritmo
+          condContornoPoiseuille_fine(funcDistribuicao_f,tamX_f,tamY_f,ux0,uy0);
+          condContornoBordas_fine(funcDistribuicao_f, funcEquilibrio_f, tamX_f, tamY_f);
+
+          calculaDensidade2D(funcDistribuicao_f,tamX_f,tamY_f);
+          calculaVelocidade2D(funcDistribuicao_f,tamX_f,tamY_f);
+
+          for(int j = 1; j < tamY_f; j++)
+          {
+            funcDistribuicao_f[0][j].uy = 0.0;
+            funcDistribuicao_f[tamX_f-1][j].uy = 0.0;
+          }
+          //
+
           calculaFuncEquilibrio2D(funcDistribuicao_f,funcEquilibrio_f,pesos,tamX_f,tamY_f);
           calculaColisao2D(funcDistribuicao_f,funcEquilibrio_f,tau_f,tamX_f,tamY_f);//colide duas vezes somente na matriz refinada
-          //calculaColisao2D(funcDistribuicao_f,funcEquilibrio_f,tau_f,tamX_f,tamY_f+razaoDeDivisao-1);//colide na intersecção (para ajustar os tempos) | parece estar dando problemas
           calculaPropagacao2D(funcDistribuicao_f,tamX_f,tamY_f+razaoDeDivisao);//propaga na matriz refinada e na interface
         }
 
-        //passo 5 | tá bem ruim isso daqui
+        //passo 5 | tá bem ruim isso daqui | não sei se precisa ser antes ou depois das condições de contorno
         for(int i = 0; i < tamX_c; i++)
         {
           funcDistribuicao_c[i][0].f[2] = 0;
@@ -386,9 +464,14 @@ int main()
         }
 
         //Condições de contorno
+        //coarse
         condContornoPoiseuille_coarse(funcDistribuicao_c,tamX_c,tamY_c,ux0,uy0);
+        condContornoBordas_coarse(funcDistribuicao_c, funcEquilibrio_c, tamX_c, tamY_c);
+
+        //fine
         condContornoPoiseuille_fine(funcDistribuicao_f,tamX_f,tamY_f,ux0,uy0);
-        condContornoBordas(funcDistribuicao_c, funcEquilibrio_c, tamX_c, tamY_c, funcDistribuicao_f, funcEquilibrio_f, tamX_f, tamY_f);
+        condContornoBordas_fine(funcDistribuicao_f, funcEquilibrio_f, tamX_f, tamY_f);
+
 
         //Recalcula a densidade e a velocidade
         calculaDensidade2D(funcDistribuicao_c,tamX_c,tamY_c);
@@ -408,9 +491,25 @@ int main()
           funcDistribuicao_f[0][j].uy = 0.0;
           funcDistribuicao_f[tamX_f-1][j].uy = 0.0;
         }
+
+        //função para conferir se não está divergindo
+        if(k % 100 == 0)
+        {
+          if(confere(funcDistribuicao_c,tamX_c,tamY_c))
+          {
+            printf("Deu erro na matriz grosseira\n");
+            return 0;
+          }
+          if(confere(funcDistribuicao_f,tamX_f,tamY_f))
+          {
+            printf("Deu erro na matriz refinada\n");
+            return 0;
+          }
+        }
+
     }
 
-    EscreveDirecoes(funcDistribuicao_c,"direções grosseira.txt",tamX_c,tamY_c);
+    EscreveDirecoes(funcDistribuicao_c,"results/direções grosseira.txt",tamX_c,tamY_c);
     //EscreveDirecoes_refinada(funcDistribuicao_f,"direções refinadas.txt",tamX_c,tamY_c,razaoDeDivisao);
     escreveMatriz(funcDistribuicao_c,tamX_c,tamY_c);
     //escreveMatriz_refinada(funcDistribuicao_f,tamX_f,tamY_f);
@@ -428,7 +527,8 @@ int main()
     calculaDensidade2D(funcDistribuicao_c,tamX_c,tamY_c);
     calculaVelocidade2D(funcDistribuicao_c,tamX_c,tamY_c);
     escreveMatriz_refinada(funcDistribuicao_c,tamX_c,tamY_c);
-    EscreveDirecoes(funcDistribuicao_c,"direções Pós-Processamento.txt",tamX_c,tamY_c);
+    EscreveDirecoes(funcDistribuicao_c,"results/direções Pós-Processamento.txt",tamX_c,tamY_c);
+
 
     return 0;
 }
