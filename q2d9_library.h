@@ -27,6 +27,10 @@ struct celula_t
     double f[9];//função de distribuição
 }typedef Celula;
 
+//Função usada para desalocar a memória alocada nas matrizes.
+//Não retorna nada
+void limpa(Celula **funcDistribuicao, int tamX, int tamY);
+
 //Função usada para calcular a densidade na célula
 //Retorna a densidade da célula no parâmetro rho
 void calculaDensidade2D(Celula **funcDistribuicao, int tamX, int tamY);

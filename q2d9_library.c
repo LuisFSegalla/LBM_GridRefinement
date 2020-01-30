@@ -1,5 +1,16 @@
 #include "q2d9_library.h"
 
+//Função usada para desalocar a memória alocada nas matrizes.
+//Não retorna nada
+void limpa(Celula **funcDistribuicao, int tamX, int tamY)
+{
+  for(int i = 0; i < tamX; i++)
+  {
+    free(funcDistribuicao[i]);
+  }
+  free(funcDistribuicao);
+}
+
 //Função usada para calcular a densidade na célula
 //Retorna a densidade da célula no parâmetro rho
 void calculaDensidade2D(Celula **funcDistribuicao, int tamX, int tamY)
@@ -179,16 +190,16 @@ void calculaExplosao2D(Celula **funcDistribuicao_c, Celula **funcDistribuicao_f,
     for(int c = 0; c < 9; c++)
     {
       divValue = funcDistribuicao_c[i][0].f[c]/(razaoDeDivisao*razaoDeDivisao);
-      for(int j = 0; j < razaoDeDivisao; j++)
+      for(int i2 = 0; i2 < razaoDeDivisao; i2++)
       {
-        for(int i2 = 0; i2 < razaoDeDivisao; i2++)
+        for(int j = 0; j < razaoDeDivisao; j++)
         {
           funcDistribuicao_f[i*razaoDeDivisao + i2][tamY_f + j].f[c] = divValue;
         }
       }
+      divValue = 0;
     }
   }
-
 }
 
 void calculaDensidade2D_fronteira(Celula **funcDistribuicao, int tamX_f, int tamY_f, int razaoDeDivisao)
