@@ -58,21 +58,6 @@ void EscreveDirecoes_refinada(Celula **funcDistribuicao, char *nome,int tamX, in
   }
 }
 
-void EscreveLinha(Celula **funcDistribuicao, char *nome, int tamX, int linha)
-{
-  FILE *arq;
-  arq = fopen(nome,"w");
-  //printf("nome: %s\nlinha: %d\n", nome, linha);
-  for(int i = 0; i < tamX; i++)
-  {
-    fprintf(arq, " |");
-    for(int c = 0; c < 9; c++)
-    {
-      fprintf(arq, " %f ", funcDistribuicao[i][linha].f[c]);
-    }
-    fprintf(arq, "|");
-  }
-}
 
 void EscreveTudo(Celula **funcDistribuicao, char *nome, int tamX, int tamY)
 {
@@ -406,8 +391,6 @@ int main()
     //laço principal
     for(int k = 0; k < numSteps; k++)
     {
-        printf("laço: %d\n",k );
-
         //calcula a nova função de equilíbrio
         calculaFuncEquilibrio2D(funcDistribuicao_c,funcEquilibrio_c,pesos,tamX_c,tamY_c);
         calculaFuncEquilibrio2D(funcDistribuicao_f,funcEquilibrio_f,pesos,tamX_f,tamY_f);
@@ -495,6 +478,7 @@ int main()
         //função para conferir se não está divergindo
         if(k % 100 == 0)
         {
+          printf("laço: %d\n",k );
           if(confere(funcDistribuicao_c,tamX_c,tamY_c))
           {
             printf("Deu erro na matriz grosseira\n");
@@ -510,7 +494,7 @@ int main()
     }
 
     EscreveDirecoes(funcDistribuicao_c,"results/direções grosseira.txt",tamX_c,tamY_c);
-    //EscreveDirecoes_refinada(funcDistribuicao_f,"direções refinadas.txt",tamX_c,tamY_c,razaoDeDivisao);
+    EscreveDirecoes_refinada(funcDistribuicao_f,"results/direções refinadas.txt",tamX_c,tamY_c,razaoDeDivisao);
     escreveMatriz(funcDistribuicao_c,tamX_c,tamY_c);
     //escreveMatriz_refinada(funcDistribuicao_f,tamX_f,tamY_f);
 
@@ -529,6 +513,9 @@ int main()
     escreveMatriz_refinada(funcDistribuicao_c,tamX_c,tamY_c);
     EscreveDirecoes(funcDistribuicao_c,"results/direções Pós-Processamento.txt",tamX_c,tamY_c);
 
+    //limpa a memória alocada
+    limpa(funcDistribuicao_c,tamX_c,tamY_c);
+    limpa(funcDistribuicao_f,tamX_f,tamY_f);
 
     return 0;
 }
