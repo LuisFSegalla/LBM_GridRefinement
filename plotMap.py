@@ -2,21 +2,21 @@ import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.gridspec as gridspec
 
-name1 = "Matriz da Densidade - refinada.txt"
-name2 = "Matriz da Velocidade em X - refinada.txt"
-name3 = "Matriz da Velocidade em Y - refinada.txt"
+#name1 = "Matriz da Densidade - refinada.txt"
+#name2 = "Matriz da Velocidade em X - refinada.txt"
+#name3 = "Matriz da Velocidade em Y - refinada.txt"
 
-#name1 = "Matriz da Densidade.txt"
-#name2 = "Matriz da Velocidade em X.txt"
-#name3 = "Matriz da Velocidade em Y.txt"
+name1 = "Matriz da Densidade.txt"
+name2 = "Matriz da Velocidade em X.txt"
+name3 = "Matriz da Velocidade em Y.txt"
 
 data1 = np.loadtxt(name1)
 data2 = np.loadtxt(name2)
 data3 = np.loadtxt(name3)
 
 media = sum(data1)
-#print(sum(media)/(2000.0*80.0))
-print(sum(media)/(1000.0*40.0))
+print(sum(media)/(2000.0*40.0))
+#print(sum(media)/(1000.0*20.0))
 
 fig1 = plt.figure()
 
@@ -45,6 +45,12 @@ plt.show()
 fig4 = plt.figure()
 vec = (data2[900][:])
 plt.plot(vec)
+
+vec_t = np.zeros(20)
+for i in range(20):
+    vec_t[i] = vec[i]
+plt.plot(vec_t,'*',c='red')
+
 plt.title("Escoamento ao longo da linha")
 #fig4.savefig("Escoamento ao longo da linha.png")
 

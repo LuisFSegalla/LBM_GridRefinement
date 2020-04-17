@@ -496,7 +496,7 @@ int main()
     EscreveDirecoes(funcDistribuicao_c,"results/direções grosseira.txt",tamX_c,tamY_c);
     EscreveDirecoes_refinada(funcDistribuicao_f,"results/direções refinadas.txt",tamX_c,tamY_c,razaoDeDivisao);
     escreveMatriz(funcDistribuicao_c,tamX_c,tamY_c);
-    //escreveMatriz_refinada(funcDistribuicao_f,tamX_f,tamY_f);
+    escreveMatriz_refinada(funcDistribuicao_f,tamX_f,tamY_f);
 
     for(int i = 0; i < tamX_c; i++)
     {
@@ -510,7 +510,7 @@ int main()
     }
     calculaDensidade2D(funcDistribuicao_c,tamX_c,tamY_c);
     calculaVelocidade2D(funcDistribuicao_c,tamX_c,tamY_c);
-    escreveMatriz_refinada(funcDistribuicao_c,tamX_c,tamY_c);
+    //escreveMatriz_refinada(funcDistribuicao_c,tamX_c,tamY_c);
     EscreveDirecoes(funcDistribuicao_c,"results/direções Pós-Processamento.txt",tamX_c,tamY_c);
 
     //limpa a memória alocada
