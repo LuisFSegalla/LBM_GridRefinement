@@ -1,5 +1,5 @@
 all:
-	gcc -o main2D main2D.c q2d9_library.c -lm
+	gcc -g -o main2D.out main2D.c q2d9_library.c -lm
 
 roda:
 	./main2D

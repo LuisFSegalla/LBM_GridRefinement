@@ -77,9 +77,9 @@ void EscreveTudo(Celula **funcDistribuicao, char *nome, int tamX, int tamY)
 void escreveMatriz(Celula **funcDistribuicao, int tamX, int tamY)
 {
     FILE *arqX, *arqY, *arqRho;
-    arqX   = fopen("Matriz da Velocidade em X.txt","w");
-    arqY   = fopen("Matriz da Velocidade em Y.txt","w");
-    arqRho = fopen("Matriz da Densidade.txt","w");
+    arqX   = fopen("results/Matriz da Velocidade em X.txt","w");
+    arqY   = fopen("results/Matriz da Velocidade em Y.txt","w");
+    arqRho = fopen("results/Matriz da Densidade.txt","w");
 
     for(int i = 0; i < tamX; i++)
     {
@@ -101,9 +101,9 @@ void escreveMatriz(Celula **funcDistribuicao, int tamX, int tamY)
 void escreveMatriz_refinada(Celula **funcDistribuicao, int tamX, int tamY)
 {
     FILE *arqX, *arqY, *arqRho;
-    arqX   = fopen("Matriz da Velocidade em X - refinada.txt","w");
-    arqY   = fopen("Matriz da Velocidade em Y - refinada.txt","w");
-    arqRho = fopen("Matriz da Densidade - refinada.txt","w");
+    arqX   = fopen("results/Matriz da Velocidade em X - refinada.txt","w");
+    arqY   = fopen("results/Matriz da Velocidade em Y - refinada.txt","w");
+    arqRho = fopen("results/Matriz da Densidade - refinada.txt","w");
 
     for(int i = 0; i < tamX; i++)
     {
@@ -329,7 +329,7 @@ int main()
     printf("tau_f / tau_c: %f\n", tau_f / tau_c);
 
     //numero de passos
-    int numSteps = 10000;
+    int numSteps = 300;
 
     //caracteristicas do fluido
     double ux0   = 0.002;
@@ -516,6 +516,8 @@ int main()
     //limpa a memória alocada
     limpa(funcDistribuicao_c,tamX_c,tamY_c);
     limpa(funcDistribuicao_f,tamX_f,tamY_f);
+    limpa(funcEquilibrio_c,tamX_c,tamY_c);
+    limpa(funcEquilibrio_f,tamX_f,tamY_f);
 
     return 0;
 }

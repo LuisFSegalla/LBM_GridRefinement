@@ -52,6 +52,6 @@ for i in range(20):
 plt.plot(vec_t,'*',c='red')
 
 plt.title("Escoamento ao longo da linha")
-#fig4.savefig("Escoamento ao longo da linha.png")
+fig4.savefig("Escoamento ao longo da linha.png")
 
 plt.show()
